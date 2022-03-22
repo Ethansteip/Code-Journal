@@ -19,6 +19,7 @@ class DatePicker extends Component
     public $currentDate;
     public $selectedDate;
     public $whatIsTheCurrentMonday;
+    public $datesThatHaveEntries;
 
 
     protected $listeners = ['findEntriesMatchingDate' => 'highlightSelectedDate', 'resetDate' => 'displayCurrentWeek'];
@@ -34,6 +35,7 @@ class DatePicker extends Component
         $this->datestate = 0;
         //$this->currentDate = Carbon::now()->format('y-m-d');
         $this->selectedDate = Carbon::now()->format('y-m-d');
+        $this->datesThatHaveEntries = [];
 
 
     }
@@ -56,8 +58,10 @@ class DatePicker extends Component
           $thisWeeksArray[] = [$this->weekDays[$i], $weekStartDate->addDay(1)->format('d'), $weekStartDate->format('y-m-d')];
         }
       }
-      
+      $this->datesThatHaveEntries = $this->doesDateHaveEntry($thisWeeksArray);
+      //dump($this->datesThatHaveEntries);
       $this->thisWeeksArray = $thisWeeksArray;
+      //dump($this->thisWeeksArray);
       $this->currentMonth = $currentMonth;
     }
 
@@ -122,6 +126,25 @@ class DatePicker extends Component
       $this->selectedDate = Carbon::now()->format('y-m-d');
 
 
+    }
+
+    //Determine if a user has any associated entries on a given date.
+    //Return value will be used to determine if the date gets a checkmark above it or not for the user.
+
+    public function doesDateHaveEntry($dates)
+    {
+
+      foreach ($dates as $key => $value){
+
+        $hasEntry = Entry::where('user_id', auth()->user()->id)
+          ->whereDate('created_at', $value[2])
+          ->count();
+        
+        $this->datesThatHaveEntries[] = $hasEntry;
+
+      }
+      
+      return $this->datesThatHaveEntries;
     }
 
     public function emitEntriesMatchingDateSelected($selectedDate)
