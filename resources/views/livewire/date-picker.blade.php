@@ -28,23 +28,18 @@
         @foreach($thisWeeksArray as $key => $value)
         <button wire:click="$emit('findEntriesMatchingDate', '{{ $value[2] }}')" class='flex flex-col items-center gap-y-1 pt-1'>
           <div id="date-picker" class='flex {{ ($selectedDate == $value[2]) ? 'bg-indigo-400 flex justify-center items-center relative text-white py-3 w-20 shadow-lg rounded font-extrabold text-xl' : 'bg-gray-800 relative flex justify-center items-center text-white py-3 w-20 shadow-lg rounded font-extrabold text-xl hover:bg-gray-600 transition duration-300'}}'>
+            <div class='absolute top-0 right-0'>
+              @if ($value[3])
+                <svg class="w-4 h-4 text-green-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              @endif
+            </div>
             {{ $value[0] }}
             <br>
             {{ $value[1] }}
-              
           </div>
         </button>
         @endforeach
 
-        <div class='absolute top-0 right-0'>
-          @foreach($datesThatHaveEntries as $key => $value)
-            @if ($value >= 1)
-              <svg class="w-4 h-4 text-green-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-            @else
-            Ethan
-            @endif
-          @endforeach
-        </div>
     </div>
 
     {{-- Date Header --}}

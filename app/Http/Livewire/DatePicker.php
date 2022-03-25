@@ -44,25 +44,7 @@ class DatePicker extends Component
     //the date selector component on initial page load.
     public function booted()
     {
-      $date = Carbon::now();
-      $weekStartDate = $date->startOfWeek();
-      $this->whatIsTheCurrentMonday = $date->startOfWeek();
-      $currentMonth = Carbon::now()->format('F');
-      $thisWeeksArray = [];
-      $weekDays = ['MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT', 'SUN'];
-
-      for ($i = 0; $i < 7; $i++){
-        if ($i == 0){
-          $thisWeeksArray[] = [$this->weekDays[$i], $weekStartDate->format('d'), $weekStartDate->format('y-m-d')];
-        }else {
-          $thisWeeksArray[] = [$this->weekDays[$i], $weekStartDate->addDay(1)->format('d'), $weekStartDate->format('y-m-d')];
-        }
-      }
-      $this->datesThatHaveEntries = $this->doesDateHaveEntry($thisWeeksArray);
-      //dump($this->datesThatHaveEntries);
-      $this->thisWeeksArray = $thisWeeksArray;
-      //dump($this->thisWeeksArray);
-      $this->currentMonth = $currentMonth;
+      $this->navigateWeeks('0');
     }
 
 
@@ -85,7 +67,7 @@ class DatePicker extends Component
     //the month, one week at a time.
     public function navigateWeeks($plusMinusDays){
   
-      $date = $this->whatIsTheCurrentMonday;
+      $date = Carbon::now();
       $weekStartDate = $date->subDays($plusMinusDays + $this->dateState)->startOfWeek();
       $thisWeeksArray = [];
       $weekDays = ['MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT', 'SUN'];
@@ -93,9 +75,9 @@ class DatePicker extends Component
 
       for ($i = 0; $i < 7; $i++){
         if ($i == 0){
-          $thisWeeksArray[] = [$this->weekDays[$i], $weekStartDate->format('d'), $weekStartDate->format('y-m-d')];
+          $thisWeeksArray[] = [$this->weekDays[$i], $weekStartDate->format('d'), $weekStartDate->format('y-m-d'), $this->doesDateHaveEntry($weekStartDate->format('y-m-d'))];
         }else {
-          $thisWeeksArray[] = [$this->weekDays[$i], $weekStartDate->addDay(1)->format('d'), $weekStartDate->format('y-m-d')];
+          $thisWeeksArray[] = [$this->weekDays[$i], $weekStartDate->addDay(1)->format('d'), $weekStartDate->format('y-m-d'), $this->doesDateHaveEntry($weekStartDate->format('y-m-d'))];
         }
       }
       
@@ -105,46 +87,19 @@ class DatePicker extends Component
 
     public function displayCurrentWeek()
     {
-      $date = Carbon::now();
-      $weekStartDate = $date->startOfWeek();
-      $this->dateState;
-      $thisWeeksArray = [];
-      $weekDays = ['MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT', 'SUN'];
-      $this->currentMonth = $weekStartDate->format('F');
-
-      for ($i = 0; $i < 7; $i++){
-        if ($i == 0){
-          $thisWeeksArray[] = [$this->weekDays[$i], $weekStartDate->format('d'), $weekStartDate->format('y-m-d')];
-        }else {
-          $thisWeeksArray[] = [$this->weekDays[$i], $weekStartDate->addDay(1)->format('d'), $weekStartDate->format('y-m-d')];
-        }
-      }
-      
       $this->dateState = 0;
-      $this->thisWeeksArray = $thisWeeksArray;
-      //$this->currentMonth = Carbon::now()->format('F');
-      $this->selectedDate = Carbon::now()->format('y-m-d');
-
-
+      $this->navigateWeeks('0');
     }
 
     //Determine if a user has any associated entries on a given date.
     //Return value will be used to determine if the date gets a checkmark above it or not for the user.
 
-    public function doesDateHaveEntry($dates)
+    public function doesDateHaveEntry($date)
     {
 
-      foreach ($dates as $key => $value){
-
-        $hasEntry = Entry::where('user_id', auth()->user()->id)
-          ->whereDate('created_at', $value[2])
-          ->count();
-        
-        $this->datesThatHaveEntries[] = $hasEntry;
-
-      }
-      
-      return $this->datesThatHaveEntries;
+        return Entry::where('user_id', auth()->user()->id)
+          ->whereDate('created_at', $date)
+          ->exists();
     }
 
     public function emitEntriesMatchingDateSelected($selectedDate)
