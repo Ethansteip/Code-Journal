@@ -43,7 +43,7 @@
         <div class='flex items-center gap-x-10'>
             <div class='flex flex-col'>
                 <h2 class='text-indigo-300 font-bold'>Total Time</h2>
-                <h2 class='text-gray-900 text-3xl font-medium'>{{-- isset($sumOfEntryDurations) ? $sumOfEntryDurations : '-' --}}00:00</h2>
+                <h2 class='text-gray-900 text-3xl font-medium'>{{ $totalTime }}</h2>
             </div>
             <h2 class='text-gray-600 font-medium tracking-wide'>{{ $dateForHumans }}</h2>
         </div>

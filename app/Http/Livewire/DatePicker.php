@@ -89,6 +89,7 @@ class DatePicker extends Component
     {
       $this->dateState = 0;
       $this->navigateWeeks('0');
+      //$this->selectedDate = $date;
     }
 
     //Determine if a user has any associated entries on a given date.

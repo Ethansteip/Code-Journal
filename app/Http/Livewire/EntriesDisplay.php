@@ -9,7 +9,8 @@ use Illuminate\Support\Carbon;
 class EntriesDisplay extends Component
 {
 
-    public $userEntries;
+    public $userEntries, $userHours, $userMinutes;
+    public $formattedHours, $formattedMinutes, $totalTime;
     public $isCollectionEmpty;
     public $dateForHumans;
 
@@ -24,6 +25,11 @@ class EntriesDisplay extends Component
 
         $this->isCollectionEmpty = $this->userEntries->isEmpty();
         $this->dateForHumans = Carbon::now()->toFormattedDateString();
+        $this->userHours;
+        $this->userMinutes;
+        $this->formattedHours;
+        $this->formattedMinutes;
+        $this->totalTime;
 
     }
 
@@ -48,6 +54,18 @@ class EntriesDisplay extends Component
                               ->whereDate('created_at', '=', $selectedDate)
                               ->get();
 
+        $this->userHours = Entry::where('user_id', auth()->user()->id)
+                            ->whereDate('created_at', '=', $selectedDate)
+                            ->sum('hours');
+
+        $this->userMinutes = Entry::where('user_id', auth()->user()->id)
+                              ->whereDate('created_at', '=', $selectedDate)
+                              ->sum('minutes');
+        
+        //$this->formattedHours = $this->formatUserEntryDuration($this->userHours);
+        //$this->formattedMinutes = $this->formatUserEntryDuration($this->userMinutes);
+        
+        $this->totalTime = $this->userHours . ":" . $this->userMinutes;
         $this->isCollectionEmpty = $this->userEntries->isEmpty();
 
         $createdAt = Carbon::parse($selectedDate);
@@ -55,4 +73,15 @@ class EntriesDisplay extends Component
 
          
     }
+
+    public function formatUserEntryDuration($time)
+    {
+        if ($time < 10){
+          return str_pad($time, 2, "0", STR_PAD_LEFT);
+        }else {
+          return $time;
+        }
+    }
+
+    
 }
