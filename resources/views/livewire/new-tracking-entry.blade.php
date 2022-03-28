@@ -1,7 +1,7 @@
 <form action='{{ route('Tracking-Submit') }}' method='POST'>
     @csrf
 
-    <x-entry-button class='bg-indigo-400 hover:bg-indigo-600' wire:click="$set('showModal', true)">Submit New Entry</x-entry-button>
+    <x-entry-button class='bg-indigo-400 hover:bg-indigo-600' wire:click="$set('showModal', true)" style="outline: none;">Submit New Entry</x-entry-button>
 
 
         <x-tracking-entry-modal wire:model.defer="showModal">
@@ -11,7 +11,7 @@
             </x-slot>
 
             <x-slot name='body'>
-                <div class='flex flex-col gap-y-2'>
+                <div class='flex flex-col gap-y-2 >
                     <label for='project'>Project Name</label>
                     <input type='text' id='project' name='project' class='w-full border-2 border-gray-300 rounded-lg py-2 px-2'>
 

@@ -8,10 +8,13 @@
         <div class='overflow-auto'>
             {{-- Daily User Entries --}}
             @foreach ($userEntries as $entry)
-            <div class="flex mt-5 px-5 gap-x-20 border-b border-gray-300">
-                <h2 class="flex text-xl text-gray-600 tracking-wide font-bold">
-                
-                {{ $entry->hours . ":" . $entry->minutes }}</h2>
+            <div class="flex mt-4 px-5 gap-x-20 border-b border-gray-300 items-center">
+                <div class='flex items-center gap-x-2'>
+                    <svg class="w-6 h-6 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h2 class="flex text-xl text-gray-600 tracking-wide font-bold">
+                    {{ $entry->hours . ":" . $entry->minutes }}</h2>
+                </div>
+
 
                 <div class="flex flex-col gap-y-1">
                     <h3 class="text-gray-900 font-bold text-lg">{{ isset($entry) ? $entry->title : '-' }}</h3>
@@ -39,11 +42,11 @@
         
   
     <!-- Time Tracking Submit button section -->
-    <div class='flex items-center justify-between px-5 py-6 border-t-2 border-gray-300'>
+    <div class='flex w-full h-auto items-center justify-between px-5 py-6 border-t-2 border-gray-300 '>
         <div class='flex items-center gap-x-10'>
             <div class='flex flex-col'>
                 <h2 class='text-indigo-300 font-bold'>Total Time</h2>
-                <h2 class='text-gray-900 text-3xl font-medium'>{{ $totalTime }}</h2>
+                <h2 class='text-gray-900 text-3xl font-medium'>{{ $userHours . ":" . $userMinutes }}</h2>
             </div>
             <h2 class='text-gray-600 font-medium tracking-wide'>{{ $dateForHumans }}</h2>
         </div>

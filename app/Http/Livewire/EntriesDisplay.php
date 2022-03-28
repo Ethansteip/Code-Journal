@@ -24,9 +24,16 @@ class EntriesDisplay extends Component
                                     ->get();
 
         $this->isCollectionEmpty = $this->userEntries->isEmpty();
+
         $this->dateForHumans = Carbon::now()->toFormattedDateString();
-        $this->userHours;
-        $this->userMinutes;
+
+        $this->userHours = Entry::where('user_id', auth()->user()->id)
+                                    ->whereDate('created_at', '=', Carbon::now())
+                                    ->sum('hours');
+
+        $this->userMinutes = Entry::where('user_id', auth()->user()->id)
+                                    ->whereDate('created_at', '=', CArbon::now())
+                                    ->sum('minutes');
         $this->formattedHours;
         $this->formattedMinutes;
         $this->totalTime;
@@ -46,6 +53,8 @@ class EntriesDisplay extends Component
 
         $this->isCollectionEmpty = $this->userEntries->isEmpty();
         $this->dateForHumans = Carbon::now()->toFormattedDateString();
+
+        $this->resetLoggedHours();
     }
 
     public function displayEntriesMatchingDateSelected($selectedDate)
@@ -61,6 +70,19 @@ class EntriesDisplay extends Component
         $this->userMinutes = Entry::where('user_id', auth()->user()->id)
                               ->whereDate('created_at', '=', $selectedDate)
                               ->sum('minutes');
+
+
+        if ($this->userHours < 10){
+        $this->userHours = str_pad($this->userHours, 2, "0", STR_PAD_LEFT);
+        }else {
+            $this->userHours = $this->userHours;
+        }
+
+        if ($this->userMinutes < 10){
+            $this->userMinutes = str_pad($this->userMinutes, 2, "0", STR_PAD_LEFT);
+        }else {
+            $this->userMinutes = $this->userMinutes;
+        }
         
         //$this->formattedHours = $this->formatUserEntryDuration($this->userHours);
         //$this->formattedMinutes = $this->formatUserEntryDuration($this->userMinutes);
@@ -80,6 +102,30 @@ class EntriesDisplay extends Component
           return str_pad($time, 2, "0", STR_PAD_LEFT);
         }else {
           return $time;
+        }
+    }
+
+    public function resetLoggedHours()
+    {
+        $this->userHours = Entry::where('user_id', auth()->user()->id)
+                                    ->whereDate('created_at', '=', Carbon::now())
+                                    ->sum('hours');
+
+        $this->userMinutes = Entry::where('user_id', auth()->user()->id)
+                                    ->whereDate('created_at', '=', Carbon::now())
+                                    ->sum('minutes');
+
+
+        if ($this->userHours < 10){
+                $this->userHours = str_pad($this->userHours, 2, "0", STR_PAD_LEFT);
+            }else {
+                $this->userHours = $this->userHours;
+            }
+
+        if ($this->userMinutes < 10){
+            $this->userMinutes = str_pad($this->userMinutes, 2, "0", STR_PAD_LEFT);
+        }else {
+            $this->userMinutes = $this->userMinutes;
         }
     }
 

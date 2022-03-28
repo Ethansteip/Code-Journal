@@ -20,7 +20,7 @@
           <h2 class="text-gray-600 text-xl font-bold">{{ $currentMonth . ' ' . $currentYear }}</h2>
         </div>
       </div>
-        <button wire:click="$emit('resetDate')" class=" px-4 py-1 bg-indigo-400 hover:bg-indigo-600 text-white text-lg transition duration-200 rounded-full shadow-lg">Today</button>
+        <button wire:click="displayCurrentWeek" class=" px-4 py-1 bg-indigo-400 hover:bg-indigo-600 text-white text-lg transition duration-200 rounded-full shadow-lg">Today</button>
     </div>
 
     {{--Weekly Days Display--}}

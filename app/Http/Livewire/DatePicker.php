@@ -22,7 +22,7 @@ class DatePicker extends Component
     public $datesThatHaveEntries;
 
 
-    protected $listeners = ['findEntriesMatchingDate' => 'highlightSelectedDate', 'resetDate' => 'displayCurrentWeek'];
+    protected $listeners = ['findEntriesMatchingDate' => 'highlightSelectedDate'];
 
 
     public function mount()
@@ -88,8 +88,10 @@ class DatePicker extends Component
     public function displayCurrentWeek()
     {
       $this->dateState = 0;
-      $this->navigateWeeks('0');
-      //$this->selectedDate = $date;
+      $this->navigateWeeks(0);
+      $this->highlightSelectedDate(Carbon::now()->format('y-m-d'));
+      $this->emit('resetDate');
+      
     }
 
     //Determine if a user has any associated entries on a given date.
@@ -103,9 +105,9 @@ class DatePicker extends Component
           ->exists();
     }
 
-    public function emitEntriesMatchingDateSelected($selectedDate)
-    {
-      $this->emit('emitEntriesMatchingDateSelected($selectedDate)');
-    }
+    // public function emitEntriesMatchingDateSelected($selectedDate)
+    // {
+    //   $this->emit('emitEntriesMatchingDateSelected($selectedDate)');
+    // }
 
 }

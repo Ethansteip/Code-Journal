@@ -1,8 +1,8 @@
 @extends('layouts.DashboardLayout')
 
 @section('content')
-<main class="flex flex-col w-screen h-screen bg-gray-200">
-  <div class="flex flex-col w-1/2 h-5/6 items-center mx-5 ">
+<main class="flex w-screen h-screen bg-gray-200">
+  <div class="flex flex-col w-1/2 h-5/6 mx-5 ">
 
     <!-- Main Date and Month Nav -->
     <livewire:date-picker />
@@ -11,6 +11,11 @@
     <livewire:entries-display />
 
   </div>
+
+  <!-- Begin progress component -->
+  <livewire:progress-component />
+
+
   
 
 </main>
