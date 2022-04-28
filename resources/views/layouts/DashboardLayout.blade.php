@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Code Journal</title>
+
+    {{-- Tailwind CSS CDN --}}
     <script src="https://cdn.tailwindcss.com"></script>
+
+    {{-- Frappe Charts CDN --}}
+    <script src="https://unpkg.com/frappe-charts@1.2.4/dist/frappe-charts.min.iife.js"></script>
+
     
     {{-- Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">

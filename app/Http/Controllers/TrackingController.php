@@ -15,32 +15,17 @@ class TrackingController extends Controller
         $date = Carbon::now();
         $currentYear = $date->year;
         $currentMonth = $date->format('F');
+        
+        $contributionChartStartDate = $date;
+        $contributionChartEndDate = $date->subYear();
 
         $userEntries = Entry::where('user_id', auth()->user()->id)->get();
         //$sumOfEntryDurations = Entry::where('user_id', auth()->user()->id)->sum('duration');
 
-        return view('dashboard.TrackingComponent', ['userEntries' => $userEntries, 'currentYear' => $currentYear, 'currentMonth' => $currentMonth]);
+        return view('dashboard.TrackingComponent', ['userEntries' => $userEntries, 'currentYear' => $currentYear, 'currentMonth' => $currentMonth, 'contributionChartStartDate' => $contributionChartStartDate, 'contributionChartEndDate' => $contributionChartEndDate]);
       
     }
 
-    public function save(Request $request){
-
-        $validated = $request->validate([
-            'project' => 'required',
-            'title' => 'required',
-            'notes' => 'required',
-            'hours' => 'required', 
-            'minutes' => 'required'
-        ]);
-
-        $entry = new Entry;
-        $entry->user_id = auth()->user()->id;
-        $entry->fill($validated); 
-        $entry->save();
-
-        return redirect()->route('TrackingComponent');
-
-    }
 
 public function setWeek($plusMinus){
   

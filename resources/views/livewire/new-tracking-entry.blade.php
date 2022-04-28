@@ -8,10 +8,11 @@
 
             <x-slot name='title'>
             New Time Entry
+            {{-- <h2>{{ $dateArray }}</h2> --}}
             </x-slot>
-
+            
             <x-slot name='body'>
-                <div class='flex flex-col gap-y-2 >
+                <div class='flex flex-col gap-y-2'>
                     <label for='project'>Project Name</label>
                     <input type='text' id='project' name='project' class='w-full border-2 border-gray-300 rounded-lg py-2 px-2'>
 

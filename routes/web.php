@@ -17,9 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('dashboard.home');
-})->middleware(['auth'])->name('home');
+Route::get('/home', 'App\Http\Controllers\DashboardController@index')->middleware(['auth'])->name('home');
 
 //Hour Tracking and Daily Overview Form
 Route::get('dashboard.tracking', 'App\Http\Controllers\TrackingController@index')->name('tracking');

@@ -13,6 +13,7 @@ class EntriesDisplay extends Component
     public $formattedHours, $formattedMinutes, $totalTime;
     public $isCollectionEmpty;
     public $dateForHumans;
+    public $dateArray;
 
 
     protected $listeners = ['findEntriesMatchingDate' => 'displayEntriesMatchingDateSelected', 'resetDate' => 'resetEntriesToTodaysDate'];
@@ -34,6 +35,21 @@ class EntriesDisplay extends Component
         $this->userMinutes = Entry::where('user_id', auth()->user()->id)
                                     ->whereDate('created_at', '=', CArbon::now())
                                     ->sum('minutes');
+        
+        $this->dateArray = Carbon::now()->format('y-m-d');
+
+        if ($this->userHours < 10){
+            $this->userHours = str_pad($this->userHours, 2, "0", STR_PAD_LEFT);
+            }else {
+                $this->userHours = $this->userHours;
+            }
+    
+            if ($this->userMinutes < 10){
+                $this->userMinutes = str_pad($this->userMinutes, 2, "0", STR_PAD_LEFT);
+            }else {
+                $this->userMinutes = $this->userMinutes;
+            }
+
         $this->formattedHours;
         $this->formattedMinutes;
         $this->totalTime;
@@ -53,6 +69,7 @@ class EntriesDisplay extends Component
 
         $this->isCollectionEmpty = $this->userEntries->isEmpty();
         $this->dateForHumans = Carbon::now()->toFormattedDateString();
+        $this->dateArray = Carbon::now()->format('y-m-d');
 
         $this->resetLoggedHours();
     }
@@ -70,6 +87,8 @@ class EntriesDisplay extends Component
         $this->userMinutes = Entry::where('user_id', auth()->user()->id)
                               ->whereDate('created_at', '=', $selectedDate)
                               ->sum('minutes');
+
+        $this->dateArray = $selectedDate;
 
 
         if ($this->userHours < 10){
@@ -99,10 +118,10 @@ class EntriesDisplay extends Component
     public function formatUserEntryDuration($time)
     {
         if ($time < 10){
-          return str_pad($time, 2, "0", STR_PAD_LEFT);
-        }else {
-          return $time;
-        }
+            $time = str_pad($time, 2, "0", STR_PAD_LEFT);
+            }else {
+                $time = $time;
+            }
     }
 
     public function resetLoggedHours()

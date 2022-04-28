@@ -50,6 +50,7 @@
             </div>
             <h2 class='text-gray-600 font-medium tracking-wide'>{{ $dateForHumans }}</h2>
         </div>
+        <h3>Date Array Here: {{ $dateArray }}</h3>
     <livewire:new-tracking-entry />
     </div>
   

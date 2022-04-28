@@ -20,6 +20,7 @@ class CreateEntriesTable extends Migration
             $table->string('notes')->nullable();
             $table->integer('hours');
             $table->integer('minutes');
+            $table->string('entry_date');
             $table->timestamps();
         });
     }

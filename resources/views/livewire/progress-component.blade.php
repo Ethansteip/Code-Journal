@@ -9,7 +9,7 @@
 
             <div class='flex justify-center py-5'>
                 <div class='flex items-center gap-x-5 px-5'>
-                    <button class='py-2 text-xl tracking-wide text-gray-600 font-medium border-b-2 border-white hover:border-blue-400 transition duration-300'>This Week</button>
+                    <button wire:click="findHoursLoggedThisWeek()" class='py-2 text-xl tracking-wide text-gray-600 font-medium border-b-2 border-white hover:border-blue-400 transition duration-300'>This Week</button>
                     <button class='py-2 text-xl tracking-wide text-gray-600 font-medium border-b-2 border-white hover:border-blue-400 transition duration-300'>This Month</button>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                                 <stop offset="100%" stop-color="#3730a3" />
                             </linearGradient>
                         </defs>
-                        <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+                        <circle style='stroke-dashoffset: 200;' cx="80" cy="80" r="70" stroke-linecap="round" />
                         </svg>
                     </div>
                 </div>
