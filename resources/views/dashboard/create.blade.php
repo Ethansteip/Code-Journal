@@ -17,21 +17,29 @@
             <label class="label">
                 <span class="label-text">Journal Entry Title</span>
             </label>
-            <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+            <input id="title-input" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
         </div>
 
         <div class="flex flex-col mt-5">
             <label for="start" class="label"><span class="label-text">Entry Date</span></label>
-            <input class="input input-bordered w-full max-w-xs" type="date" id="start" name="trip-start" value="2023-07-22" min="" max="">
+            <input id="datePicker" class="input input-bordered w-full max-w-xs" type="date" id="start" name="trip-start" value="2023-07-22" min="" max="">
         </div>
-        <button onclick="saveEntry()" class="btn btn-accent mt-5 flex-end">Submit</button>
-        {{-- Entry submission alert --}}
-<div id="submission-confirmation-Alert" class="alert z-10 alert-success shadow-lg hidden absolute bottom-4 right-4 w-auto">
-    <div>
-      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-      <span>Journal Entry Saved!</span>
-    </div>
-</div>
+
+        <div class="flex align-items-center">
+          <button onclick="saveEntry()" class="btn btn-accent mt-5 flex-end">Submit</button>
+
+          {{-- Entry submission alert --}}
+          <div id="submission-confirmation-Alert" class="alert shadow-lg hidden absolute bottom-4 right-4 w-auto">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" class="stroke-teal-500 flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <span class="text-accent">Journal Entry Saved!</span>
+            </div>
+        </div>
+        </div>
+
+
+
+
     </label>
     </label>
 </section>
@@ -68,9 +76,21 @@
 
 });
 
+// Get submission confirmation alert element
 const submissionAlert = document.getElementById("submission-confirmation-Alert");
 
+// Get & set default date of datepicker to today's dat.
+let datePicker = document.getElementById('datePicker');
+datePicker.valueAsDate = new Date();
+
+// Get Title entry element
+let titleInput = document.getElementById("title-input");
+
+
 function saveEntry() {
+
+    datePicker = datePicker.value;
+    titleInput = titleInput.value
 
     editor.save()
         .then((outputData) => {
@@ -82,7 +102,7 @@ function saveEntry() {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(outputData)
+                body: JSON.stringify({data: outputData, title: titleInput, date: datePicker})
             })
             .then(() => {submissionAlert.classList.remove("hidden");})
             .then(setTimeout(() => {

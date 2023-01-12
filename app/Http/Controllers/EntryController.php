@@ -36,10 +36,10 @@ class EntryController extends Controller
     public function store(Request $request)
     {
 
-        // dump($request->blocks[0]['data']['text']);
+        //dump($request);
         $entry = new Entry([
-            'title' => 'default title',
-            'body' => $request->blocks[0]['data']['text'],
+            'title' => $request->title,
+            'body' => $request->blocks[0]["data"],
             'user_id' => 1,
         ]);
 
