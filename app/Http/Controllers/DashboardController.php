@@ -9,7 +9,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $entries = Entry::where('user_id', 1)->limit(5)->get();
+        $entries = Entry::where('user_id', 1)
+                        ->orderby('created_at', 'desc')
+                        ->limit(5)->get();
         //dd($entries);
         return view('dashboard.index', ['entries' => $entries]);
     }

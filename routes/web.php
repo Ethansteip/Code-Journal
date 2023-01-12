@@ -23,6 +23,7 @@ Route::get('/', function () {
 Route::get('/home', [DashboardController::class, 'index']);
 
 Route::get('/create-entry', [EntryController::class, 'create']);
+Route::post('/save-entry', [EntryController::class, 'store'])->name('store-entry');
 
 Route::middleware([
     'auth:sanctum',

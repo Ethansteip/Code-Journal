@@ -9,9 +9,16 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.46.1/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
 
+    {{-- Editor JS --}}
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@2.8.0/dist/bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+
+
     <title>Code Journal</title>
 </head>
-<body class="flex w-screen h-screen flex-col bg-neutral">
+<body class="flex w-screen h-screen items-center flex-col bg-neutral">
     <div class="navbar bg-base-100" data-theme="dark">
         <div class="navbar-start">
           <div class="dropdown">
@@ -27,7 +34,7 @@
           </div>
         </div>
         <div class="navbar-center">
-          <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
+          <a class="btn btn-ghost normal-case text-xl">Code Journal</a>
         </div>
         <div class="navbar-end">
           <button class="btn btn-ghost btn-circle">

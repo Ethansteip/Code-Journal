@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="stats shadow mt-10 mx-10" data-theme="dark">
+<div class="stats shadow mt-10 w-4/5" data-theme="dark">
 
     <div class="stat">
       <div class="stat-figure text-primary">
@@ -37,7 +37,7 @@
 
 
   {{-- Entries Table --}}
-  <div class="overflow-x-auto mt-10 mx-10 rounded-xl" data-theme="dark">
+  <div class="overflow-x-auto mt-10 rounded-xl w-4/5" data-theme="dark">
     <table class="table w-full">
       <!-- head -->
       <thead>
