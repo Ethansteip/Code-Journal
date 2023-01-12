@@ -4,18 +4,39 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <section class="mt-10 flex w-4/5 flex-col rounded-lg justify-center">
-        <div class="rounded-lg bg-white" id="editorjs"></div>
-    <button class=" mt-10 w-1/4 btn btn-primary" onclick="saveEntry()">Save</button>
-</section>
+        <div class="rounded-lg bg-white py-10" id="editorjs"></div>
+    <!-- The button to open modal -->
+    <label for="my-modal-4" class="btn btn-primary w-24 mt-10">Save</label>
 
+    <!-- Put this part before </body> tag -->
+    <input type="checkbox" id="my-modal-4" class="modal-toggle" />
+    <label for="my-modal-4" class="modal cursor-pointer">
+    <label class="modal-box relative w-96" for="" data-theme="dark">
+        <h3 class="text-lg text-accent font-bold">Finalize Journal Entry!</h3>
+        <div class="form-control w-full max-w-xs">
+            <label class="label">
+                <span class="label-text">Journal Entry Title</span>
+            </label>
+            <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+        </div>
 
-{{-- Entry submission alert --}}
-<div id="submission-confirmation-Alert" class="alert alert-success shadow-lg hidden absolute bottom-4 right-4 w-auto">
+        <div class="flex flex-col mt-5">
+            <label for="start" class="label"><span class="label-text">Entry Date</span></label>
+            <input class="input input-bordered w-full max-w-xs" type="date" id="start" name="trip-start" value="2023-07-22" min="" max="">
+        </div>
+        <button onclick="saveEntry()" class="btn btn-accent mt-5 flex-end">Submit</button>
+        {{-- Entry submission alert --}}
+<div id="submission-confirmation-Alert" class="alert z-10 alert-success shadow-lg hidden absolute bottom-4 right-4 w-auto">
     <div>
       <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
       <span>Journal Entry Saved!</span>
     </div>
-  </div>
+</div>
+    </label>
+    </label>
+</section>
+
+
 
 
 <script>
