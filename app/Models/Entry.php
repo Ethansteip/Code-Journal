@@ -12,6 +12,7 @@ class Entry extends Model
     protected $fillable = [
         'title',
         'body',
-        'user_id'
+        'user_id',
+        'entry_date'
     ];
 }

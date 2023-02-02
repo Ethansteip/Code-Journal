@@ -36,14 +36,17 @@ class EntryController extends Controller
     public function store(Request $request)
     {
 
-        //dump($request);
+        //dd($request);
         $entry = new Entry([
             'title' => $request->title,
-            'body' => $request->blocks[0]["data"],
+            'body' => json_encode($request->data),
+            'entry_date' => $request->date,
             'user_id' => 1,
         ]);
 
         $entry->save();
+
+        return $entry;
 
     }
 

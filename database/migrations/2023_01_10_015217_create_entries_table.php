@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('entries', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('body');
+            $table->json('body');
+            $table->date('entry_date');
             $table->timestamps();
 
             $table->foreignId('user_id')
